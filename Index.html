@@ -3,13 +3,764 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bio-Okiemute</title>
+    <title>Okiemute - Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .background-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(64, 224, 208, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(64, 224, 208, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .bio-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: cardFloat 6s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(64, 224, 208, 0.1),
+                transparent
+            );
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .name {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #40e0d0, #48cae4, #0077b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 20px rgba(64, 224, 208, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(64, 224, 208, 0.6)); }
+        }
+
+        .specialty {
+            font-size: 1.4rem;
+            color: #40e0d0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .specialty::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #40e0d0, #48cae4);
+            border-radius: 2px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #e0e0e0;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .skills-section {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .skills-title {
+            font-size: 1.5rem;
+            color: #40e0d0;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .skill-tag {
+            background: rgba(64, 224, 208, 0.1);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            background: rgba(64, 224, 208, 0.2);
+            border-color: #40e0d0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(64, 224, 208, 0.2);
+        }
+
+        .interests {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .soft-skills-section {
+            margin: 3rem 0;
+        }
+
+        .soft-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .soft-skill-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .soft-skill-item:hover {
+            background: rgba(64, 224, 208, 0.05);
+            border-color: rgba(64, 224, 208, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(64, 224, 208, 0.1);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .skill-content h4 {
+            color: #40e0d0;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-content p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        .projects-section {
+            margin: 3rem 0;
+        }
+
+        .section-title {
+            color: #40e0d0;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #40e0d0, #48cae4, #0077b6);
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(64, 224, 208, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(64, 224, 208, 0.1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-header h4 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .project-tech {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(64, 224, 208, 0.2);
+            color: #40e0d0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: #d0d0d0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #40e0d0;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .project-link:hover {
+            background: rgba(64, 224, 208, 0.1);
+            border-color: #40e0d0;
+        }
+
+        .resume-download {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .resume-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #40e0d0;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 2px solid #40e0d0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(64, 224, 208, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .resume-link:hover::before {
+            left: 100%;
+        }
+
+        .resume-link:hover {
+            background: rgba(64, 224, 208, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(64, 224, 208, 0.3);
+        }
+
+        .resume-link svg {
+            transition: transform 0.3s ease;
+        }
+
+        .resume-link:hover svg {
+            transform: translateY(2px);
+        }
+
+        .interests h3 {
+            color: #40e0d0;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .interests p {
+            color: #d0d0d0;
+            line-height: 1.7;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .cta-text {
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            background: linear-gradient(135deg, #40e0d0, #48cae4);
+            color: #0f0f23;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(64, 224, 208, 0.4);
+        }
+
+        .floating-icons {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            opacity: 0.1;
+            animation: float1 8s ease-in-out infinite;
+        }
+
+        .floating-icons:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            left: auto;
+            animation: float2 10s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(-180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .bio-card {
+                padding: 2rem;
+            }
+
+            .name {
+                font-size: 2.5rem;
+            }
+
+            .specialty {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+            }
+
+            .intro-text {
+                font-size: 1.1rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-link {
+                width: 200px;
+            }
+
+            .soft-skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .soft-skill-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .project-link {
+                text-align: center;
+            }
+                gap: 0.5rem;
+            }
+
+            .project-link {
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>My Bio-Okiemute</h1>
-    <p>Hello! My name is Okiemute, and I am a software developer with a passion for creating innovative solutions. I have experience in various programming languages and frameworks, and I love to learn new technologies.</p>
-    <p>In my free time, I enjoy reading books, exploring nature, and contributing to open-source projects. I believe in the power of collaboration and sharing knowledge with others.</p>
-    <p>Feel free to connect with me on social media or check out my GitHub profile!</p>
+    <div class="background-grid"></div>
     
+    <div class="floating-icons">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z"/>
+        </svg>
+    </div>
+    <div class="floating-icons">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z"/>
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="bio-card">
+            <div class="header">
+                <h1 class="name">Okiemute Esiri</h1>
+                <p class="specialty">Cybersecurity & Software Development</p>
+            </div>
+
+            <div class="content">
+                <p class="intro-text">
+                    Hello! I'm a passionate software developer with expertise in cybersecurity, dedicated to creating innovative solutions that make the digital world safer. I thrive on solving complex problems and building secure, scalable applications.
+                </p>
+
+                <div class="skills-section">
+                    <h3 class="skills-title">Technical Expertise</h3>
+                    <div class="skills-grid">
+                        <div class="skill-tag">Python</div>
+                        <div class="skill-tag">JavaScript</div>
+                        <div class="skill-tag">React</div>
+                        <div class="skill-tag">Node.js</div>
+                        <div class="skill-tag">Cybersecurity</div>
+                        <div class="skill-tag">Penetration Testing</div>
+                        <div class="skill-tag">Cloud Security</div>
+                        <div class="skill-tag">DevSecOps</div>
+                        <div class="skill-tag">Docker</div>
+                        <div class="skill-tag">AWS</div>
+                        <div class="skill-tag">Linux</div>
+                        <div class="skill-tag">Git</div>
+                    </div>
+                </div>
+
+                <div class="soft-skills-section">
+                    <h3 class="skills-title">Soft Skills</h3>
+                    <div class="soft-skills-grid">
+                        <div class="soft-skill-item">
+                            <div class="skill-icon">🧠</div>
+                            <div class="skill-content">
+                                <h4>Problem Solving</h4>
+                                <p>Analytical thinking and creative solutions</p>
+                            </div>
+                        </div>
+                        <div class="soft-skill-item">
+                            <div class="skill-icon">👥</div>
+                            <div class="skill-content">
+                                <h4>Team Collaboration</h4>
+                                <p>Effective communication and teamwork</p>
+                            </div>
+                        </div>
+                        <div class="soft-skill-item">
+                            <div class="skill-icon">🎯</div>
+                            <div class="skill-content">
+                                <h4>Attention to Detail</h4>
+                                <p>Precision in code and security analysis</p>
+                            </div>
+                        </div>
+                        <div class="soft-skill-item">
+                            <div class="skill-icon">📚</div>
+                            <div class="skill-content">
+                                <h4>Continuous Learning</h4>
+                                <p>Staying updated with tech trends</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="projects-section">
+                    <h3 class="section-title">Featured Projects</h3>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <div class="project-header">
+                                <h4>SecureVault</h4>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Cryptography</span>
+                                </div>
+                            </div>
+                            <p class="project-description">
+                                A secure password manager with AES-256 encryption, featuring biometric authentication and secure cloud sync.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">Live Demo</a>
+                                <a href="#" class="project-link">GitHub</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header">
+                                <h4>NetworkGuard</h4>
+                                <div class="project-tech">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Node.js</span>
+                                </div>
+                            </div>
+                            <p class="project-description">
+                                Real-time network monitoring dashboard with threat detection and automated incident response capabilities.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">Live Demo</a>
+                                <a href="#" class="project-link">GitHub</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <div class="project-header">
+                                <h4>VulnScanner</h4>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Docker</span>
+                                </div>
+                            </div>
+                            <p class="project-description">
+                                Automated vulnerability scanner for web applications with comprehensive reporting and remediation suggestions.
+                            </p>
+                            <div class="project-links">
+                                <a href="#" class="project-link">Live Demo</a>
+                                <a href="#" class="project-link">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interests">
+                    <h3>Beyond Code</h3>
+                    <p>
+                        When I'm not coding or securing systems, you'll find me diving into the latest cybersecurity research, exploring nature trails, or contributing to open-source projects. I'm a firm believer in knowledge sharing and community collaboration – after all, the best security comes from collective wisdom and continuous learning.
+                    </p>
+                </div>
+
+                <div class="cta-section">
+                    <div class="resume-download">
+                        <a href="https://drive.google.com/file/d/1P5c8u8K10mvfHBw3Js0g_sx3VJzGta34/view?usp=sharing" class="resume-link" target="_blank" onclick="downloadResume()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                            Download Resume
+                        </a>
+                    </div>
+                    
+                    <p class="cta-text">
+                        Ready to build something secure and amazing together?
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interaction effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const skillTags = document.querySelectorAll('.skill-tag');
+            
+            skillTags.forEach(tag => {
+                tag.addEventListener('mouseenter', function() {
+                    this.style.animationPlayState = 'paused';
+                });
+                
+                tag.addEventListener('mouseleave', function() {
+                    this.style.animationPlayState = 'running';
+                });
+            });
+
+            // Add typing effect to the name
+            const nameElement = document.querySelector('.name');
+            const originalText = nameElement.textContent;
+            nameElement.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    nameElement.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 150);
+                }
+            };
+            
+            setTimeout(typeWriter, 500);
+
+            // Parallax effect for floating icons
+            document.addEventListener('mousemove', (e) => {
+                const icons = document.querySelectorAll('.floating-icons');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                icons.forEach((icon, index) => {
+                    const speed = (index + 1) * 0.5;
+                    icon.style.transform = `translate(${x * speed * 10}px, ${y * speed * 10}px)`;
+                });
+            });
+        });
+    </script>
 </body>
 </html>
